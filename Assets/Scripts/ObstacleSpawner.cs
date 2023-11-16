@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject obstacle;
+    [SerializeField] private GameObject obstaclePrefab;
     [SerializeField] private GameObject startPoint;
     [SerializeField] private GameObject endPoint;
 
@@ -51,7 +51,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     private void SpawnObstacle()
     {
-        GameObject createdObstacle = Instantiate(obstacle, startPoint.transform.position, obstacle.transform.rotation);
+        GameObject createdObstacle = Instantiate(obstaclePrefab, startPoint.transform.position, obstaclePrefab.transform.rotation);
         obstacles.Add(createdObstacle);
     }
 }
