@@ -7,6 +7,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private List<GameObject> balls;
     [SerializeField] private GameObject spawnArea;
 
+    private GameManager gameManager;
+
     private float xSpawnRange;
     private float ySpawnRange;
 
@@ -18,6 +20,8 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         BoxCollider area = spawnArea.GetComponent<BoxCollider>();
 
         xSpawnRange = area.size.x / 2;
@@ -45,6 +49,10 @@ public class SpawnManager : MonoBehaviour
         int ballIndex = Random.Range(0, balls.Count);
 
         spawnPosition = RandomSpawnPosition();
-        Instantiate(balls[ballIndex], spawnPosition, balls[ballIndex].transform.rotation);
+
+        if (gameManager.isGameActive)
+        {
+            Instantiate(balls[ballIndex], spawnPosition, balls[ballIndex].transform.rotation);
+        }
     }
 }

@@ -30,8 +30,8 @@ public class ObstaclePatrol : MonoBehaviour
         float distanceEndPoint = Vector3.Distance(obstacle.transform.position, endPoint.transform.position);
         float distanceStartPoint = Vector3.Distance(obstacle.transform.position, startPoint.transform.position);
 
-        Vector3 moveDirection = movingToEnd ? endPoint.transform.position - startPoint.transform.position : startPoint.transform.position - endPoint.transform.position;
-        obstacle.transform.Translate(moveDirection.normalized * speed * Time.deltaTime);
+        Vector2 moveDirection = movingToEnd ? (endPoint.transform.position - startPoint.transform.position).normalized : (startPoint.transform.position - endPoint.transform.position).normalized;
+        obstacle.transform.Translate(moveDirection * speed * Time.deltaTime);
 
         if (movingToEnd ? distanceEndPoint <= 0.1f : distanceStartPoint <= 0.1f)
         {
