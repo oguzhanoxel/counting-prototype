@@ -5,11 +5,12 @@ using UnityEngine;
 public class DestroyerScript : MonoBehaviour
 {
     private float destroyTime = 3.0f;
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -20,13 +21,17 @@ public class DestroyerScript : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        IEnumerator waitAndDestroy = WaitAndDestroy(other.gameObject);
-        StartCoroutine(waitAndDestroy);
+        StartCoroutine(WaitAndDestroy(other.gameObject));
     }
 
     private IEnumerator WaitAndDestroy(GameObject gameObject)
     {
         yield return new WaitForSeconds(destroyTime);
-        Destroy(gameObject);
+
+        if (gameObject != null) 
+        { 
+            Destroy(gameObject);
+            gameManager.IncreaseDestroyCounter();
+        }
     }
 }

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SpawnManager : MonoBehaviour
+public class BallSpawnManager : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> balls;
+    [SerializeField] private GameObject ball;
     [SerializeField] private GameObject spawnArea;
+    [SerializeField] private Slider spawnSlider;
 
     private GameManager gameManager;
 
@@ -17,6 +19,10 @@ public class SpawnManager : MonoBehaviour
     private float zSpawnPosition = 0.0f;
     private Vector3 spawnPosition;
 
+    private float spawnRate;
+
+    private bool spawning = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,13 +33,13 @@ public class SpawnManager : MonoBehaviour
         xSpawnRange = area.size.x / 2;
         ySpawnRange = area.size.y / 2;
 
-        InvokeRepeating("SpawnBall", 2.0f, 2.0f);
+        StartCoroutine(SpawnBall());
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        spawnRate = spawnSlider.value + 0.3f;
     }
 
     private Vector3 RandomSpawnPosition()
@@ -44,15 +50,18 @@ public class SpawnManager : MonoBehaviour
         return new Vector3(xSpawnPosition, ySpawnPosition, zSpawnPosition);
     }
 
-    private void SpawnBall()
+    private IEnumerator SpawnBall()
     {
-        int ballIndex = Random.Range(0, balls.Count);
-
-        spawnPosition = RandomSpawnPosition();
-
-        if (gameManager.isGameActive)
+        while (spawning)
         {
-            Instantiate(balls[ballIndex], spawnPosition, balls[ballIndex].transform.rotation);
+            yield return new WaitForSeconds(spawnRate);
+
+            spawnPosition = RandomSpawnPosition();
+
+            if (gameManager.isGameActive && spawnRate != 3.0f)
+            {
+                Instantiate(ball, spawnPosition, ball.transform.rotation);
+            }
         }
     }
 }

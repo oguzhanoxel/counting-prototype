@@ -250,6 +250,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dace5d908bf37c429b595dcb006fdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightBall: {fileID: 2935044088485934649, guid: 685fdb2557bc61e43bab233f5247d5ae, type: 3}
+  ball: {fileID: 2935044088485934649, guid: b1a2e05749c773847aceba5107c9da83, type: 3}
+  heavyBall: {fileID: 2935044088485934649, guid: a15aa6b5cefd35547915589684d10f73, type: 3}
 --- !u!1 &4771997625549782547
 GameObject:
   m_ObjectHideFlags: 0
